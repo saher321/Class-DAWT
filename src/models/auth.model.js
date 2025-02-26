@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
     name: String,
@@ -15,18 +16,29 @@ const userSchema = new mongoose.Schema({
     },
     isDelete:{
         type:Boolean,
-        default:true
+        default:false
     }
+
 })
 
 userSchema.methods.isMatchPassword = async function (password) {
-    
     return await bcrypt.compare(password, this.password)
+}
+
+
+userSchema.methods.getAuthToken = function() {
+
+    return jwt.sign({_id: this._id}, process.env.JWT_SECRET)
 }
 
 
 
 
-export default mongoose.model('Auth',userSchema)
+
+
+
+
+
+export default mongoose.model('User',userSchema)
 
 
