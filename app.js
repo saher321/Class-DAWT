@@ -16,12 +16,4 @@ app.use('/api', authRouter)
 
 
 
-app.get('/',(req,res)=>{
-    const data ={
-        message: 'Welcome to the API',
-        name:'pny trings',
-        age: 25,
 
-    }
-    sendResponse(res,false,'successfuly login',data)
-})
